@@ -2,18 +2,26 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "CDVWKWebViewEngine.h"
 
+/** PDBIM **/
+#import <objc/message.h>
+/** /PDBIM **/
+
 @implementation IONAssetHandler
 
 -(void)setAssetPath:(NSString *)assetPath {
     self.basePath = assetPath;
 }
 
-- (instancetype)initWithBasePath:(NSString *)basePath andScheme:(NSString *)scheme {
+/** PDBIM **/
+//- (instancetype)initWithBasePath:(NSString *)basePath andScheme:(NSString *)scheme {
+- (instancetype)initWithBasePath:(NSString *)basePath andScheme:(NSString *)scheme andViewController:(CDVViewController *)viewController {
+/** /PDBIM **/
     self = [super init];
     if (self) {
         _basePath = basePath;
         _scheme = scheme;
     }
+
     return self;
 }
 
@@ -23,6 +31,23 @@
     NSURL * url = urlSchemeTask.request.URL;
     NSString * stringToLoad = url.path;
     NSString * scheme = url.scheme;
+    /** PDBIM **/
+    if ([url.host isEqualToString:@"pdbim"]) {
+        BOOL handledRequest = NO;
+        NSDictionary *pluginObjects = [[self.viewController pluginObjects] copy];
+        for (NSString* pluginName in pluginObjects) {
+            CDVPlugin* schemePlugin = [self.viewController.pluginObjects objectForKey:pluginName];
+            SEL selector = NSSelectorFromString(@"overrideSchemeTask:");
+            if ([schemePlugin respondsToSelector:selector]) {
+                handledRequest = (((BOOL (*)(id, SEL, id <WKURLSchemeTask>))objc_msgSend)(schemePlugin, selector, urlSchemeTask));
+                if (handledRequest) {
+                    break;
+                }
+            }
+        }
+        return;
+    }
+    /** /PDBIM **/
 
     if ([scheme isEqualToString:self.scheme]) {
         if ([stringToLoad hasPrefix:@"/_app_file_"]) {

@@ -27,6 +27,9 @@
 #import "CDVWKWebViewUIDelegate.h"
 #import "CDVWKProcessPoolFactory.h"
 #import "IONAssetHandler.h"
+/** PDBIM **/
+#import <PlanDoc_Site-Swift.h>
+/** /PDBIM **/
 
 #define CDV_BRIDGE_NAME @"cordova"
 #define CDV_IONIC_STOP_SCROLL @"stopScroll"
@@ -96,7 +99,10 @@
 @property (nonatomic, weak) id <WKScriptMessageHandler> weakScriptMessageHandler;
 @property (nonatomic, readwrite) CGRect frame;
 @property (nonatomic, strong) NSString *userAgentCreds;
-@property (nonatomic, strong) IONAssetHandler * handler;
+/* PDBIM */
+//@property (nonatomic, strong) IONAssetHandler * handler;
+@property (nonatomic, strong) PDBimAssetHandler * handler;
+/* /PDBIM */
 
 @property (nonatomic, readwrite) NSString *CDV_LOCAL_SERVER;
 @end
@@ -260,7 +266,10 @@
     WKWebViewConfiguration* configuration = [self createConfigurationFromSettings:settings];
     configuration.userContentController = userContentController;
 
-    self.handler = [[IONAssetHandler alloc] initWithBasePath:[self getStartPath] andScheme:scheme];
+    /* PDBIM */
+    //self.handler = [[IONAssetHandler alloc] initWithBasePath:[self getStartPath] andScheme:scheme andViewController:vc];
+    self.handler = [[PDBimAssetHandler alloc] initWithBasePath:[self getStartPath] scheme:scheme];
+    /* /PDBIM */
     [configuration setURLSchemeHandler:self.handler forURLScheme:scheme];
 
     // re-create WKWebView, since we need to update configuration
