@@ -19,8 +19,8 @@
   under the License.
 -->
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-ionic-webview" version="5.0.0">
-    <name>cordova-plugin-ionic-webview</name>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-pdbim-ionic-webview" version="5.0.2">
+    <name>cordova-plugin-pdbim-ionic-webview</name>
     <description>Ionic Web View Engine Plugin</description>
     <license>Apache-2.0</license>
     <keywords>cordova,wkwebview</keywords>
@@ -42,7 +42,7 @@
       <allow-navigation href="http://localhost/*"/>
       <allow-navigation href="https://localhost/*"/>
       <allow-navigation href="ionic://*"/>
-      <preference name="webView" value="com.ionicframework.cordova.webview.IonicWebViewEngine"/>
+      <!-- <preference name="webView" value="com.ionicframework.cordova.webview.IonicWebViewEngine"/> -->
       <feature name="IonicWebView">
           <param name="android-package" value="com.ionicframework.cordova.webview.IonicWebView"/>
       </feature>

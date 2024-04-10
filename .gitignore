@@ -16,3 +16,5 @@ node_modules
 xcuserdata
 package-lock.json
 
+/cordova-plugin-pdbim-ionic-webview.iml
+/.idea/
